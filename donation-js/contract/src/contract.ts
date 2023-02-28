@@ -6,41 +6,59 @@ import { Donation, STORAGE_COST } from './model'
 @NearBindgen({})
 class DonationContract {
   beneficiary: string = "v1.faucet.nonofficial.testnet";
-  donations = new UnorderedMap<bigint>('map-uid-1');
+
+  /*1. LEARNER: Create a new map called "donations" using new UnorderedMap<>()
+  int to string mapping */
 
   @initialize({ privateFunction: true })
   init({ beneficiary }: { beneficiary: string }) {
-    this.beneficiary = beneficiary
+    //2. LEARNER: Assign benficiary using this.beneficiary
   }
 
   @call({ payableFunction: true })
   donate() {
     // Get who is calling the method and how much $NEAR they attached
+    /* UNCOMMENT THIS BLOCK
     let donor = near.predecessorAccountId();
-    let donationAmount: bigint = near.attachedDeposit() as bigint;
+    */ 
 
+    //3. LEARNER: Create a variable called "donationAmount" of type bigint and assign it 
+    // with the "attachedDeposit" function available in thee near sdk
+    // Typecast RHS to bigint
+    
+    /* UNCOMMENT THIS BLOCK
     let donatedSoFar = this.donations.get(donor, {defaultValue: BigInt(0)})
     let toTransfer = donationAmount;
+    */
 
     // This is the user's first donation, lets register it, which increases storage
+    /* UNCOMMENT THIS BLOCK
     if (donatedSoFar == BigInt(0)) {
       assert(donationAmount > STORAGE_COST, `Attach at least ${STORAGE_COST} yoctoNEAR`);
 
       // Subtract the storage cost to the amount to transfer
       toTransfer -= STORAGE_COST
-    }
+    } */
 
     // Persist in storage the amount donated so far
+
+    /* UNCOMMENT THIS BLOCK
     donatedSoFar += donationAmount
-    this.donations.set(donor, donatedSoFar)
+
+
+    //4. LEARNER: "set" the donations map of the donor - hint: you need to use "this"
+    
     near.log(`Thank you ${donor} for donating ${donationAmount}! You donated a total of ${donatedSoFar}`);
+    */
 
     // Send the money to the beneficiary
+    /* UNCOMMENT THIS BLOCK
     const promise = near.promiseBatchCreate(this.beneficiary)
     near.promiseBatchActionTransfer(promise, toTransfer)
+    */
 
     // Return the total amount donated so far
-    return donatedSoFar.toString()
+    //UNCOMMENT THIS: return donatedSoFar.toString()
   }
 
   @call({ privateFunction: true })
