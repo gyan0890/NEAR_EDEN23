@@ -61,13 +61,18 @@ class DonationContract {
     //UNCOMMENT THIS: return donatedSoFar.toString()
   }
 
-  @call({ privateFunction: true })
-  change_beneficiary(beneficiary) {
-    this.beneficiary = beneficiary;
-  }
+  /* TODO: 5. Write a function called "change_beneficiary"
+  - Use the @call tag and make the function private
+  - The argument is "beneficiary"
+  - Assign beneficiary to the new value(Hint: Use "this")
+  */
 
-  @view({})
-  get_beneficiary(): string { return this.beneficiary }
+
+  /* TODO: 6. Write a function called "get_beneficiary"
+  - Use the @view tag
+  - No arguments but return parameter type should be added
+  - Return beneficiary (Hint: Use "this")
+  */
 
   @view({})
   number_of_donors(): number { return this.donations.length }
